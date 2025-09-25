@@ -1,0 +1,70 @@
+{
+  "name": "Loan App Dev",
+  "dockerFile": "Dockerfile",
+  "context": "..",
+  "forwardPorts": [5173, 3000],
+  "portsAttributes": {
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    },
+    "3000": {
+      "label": "React App",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "npm install",
+  
+  // SSH Configuration
+  "mounts": [
+    "source=loan-app-node-modules,target=/workspace/node_modules,type=volume",
+    "source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached"
+  ],
+  
+  // Git configuration
+  "containerEnv": {
+    "GIT_EDITOR": "code --wait"
+  },
+  
+  // Copy Git config from host
+  "initializeCommand": "echo 'Initializing Dev Container...'",
+  "postStartCommand": [
+    "bash", "-c", 
+    "cp /tmp/.gitconfig-copy ~/.gitconfig 2>/dev/null || true && chmod 600 ~/.ssh/* 2>/dev/null || true"
+  ],
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode", 
+        "ms-vscode.vscode-typescript-next",
+        "eamodio.gitlens",
+        "bradlc.vscode-tailwindcss",
+        "formulahendry.auto-rename-tag",
+        "christian-kohler.path-intellisense"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "git.enableCommitSigning": false,
+        "editor.formatOnSave": true,
+        "tailwindCSS.includeLanguages": {
+          "javascript": "javascript",
+          "html": "HTML"
+        }
+      }
+    }
+  },
+  
+  "remoteUser": "node",
+  
+  // Features para adicionar funcionalidades
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    }
+  }
+}
