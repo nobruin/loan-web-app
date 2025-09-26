@@ -1,50 +1,29 @@
-import { useState } from "react";
-import { Typography, TextField, Button, Box } from "@mui/material";
-import Layout from "../components/Layout";
+import { Container, Typography, TextField, Button, Box } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import SaveIcon from "@mui/icons-material/Save";
+import { Link } from "react-router-dom";
 
 export default function Register() {
-  const [form, setForm] = useState({
-    fullName: "",
-    cpf: "",
-    birthDate: "",
-    address: "",
-    bankAccount: "",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = () => {
-    console.log("Dados enviados:", form);
-    alert("Cadastro realizado com sucesso (mock)!");
-  };
-
   return (
-    <Layout>
+    <Container maxWidth="sm">
       <Typography variant="h4" gutterBottom>
         Cadastro
       </Typography>
-
       <Box display="flex" flexDirection="column" gap={2}>
-        <TextField label="Nome Completo" name="fullName" value={form.fullName} onChange={handleChange} />
-        <TextField label="CPF" name="cpf" value={form.cpf} onChange={handleChange} />
-        <TextField
-          label="Data de Nascimento"
-          type="date"
-           slotProps={{
-            inputLabel: { shrink: true }
-        }}
-          name="birthDate"
-          value={form.birthDate}
-          onChange={handleChange}
-        />
-        <TextField label="Endereço" name="address" value={form.address} onChange={handleChange} />
-        <TextField label="Conta Bancária" name="bankAccount" value={form.bankAccount} onChange={handleChange} />
-        <Button variant="contained" onClick={handleSubmit}>
-          Cadastrar
-        </Button>
+        <TextField label="Nome Completo" />
+        <TextField label="CPF" />
+        <TextField label="Data de Nascimento" type="date" InputLabelProps={{ shrink: true }} />
+        <TextField label="Endereço" />
+        <TextField label="Conta Bancária" />
+        <Box display="flex" gap={2}>
+          <Button component={Link} to="/" variant="outlined" startIcon={<ArrowBackIcon />}>
+            Voltar
+          </Button>
+          <Button variant="contained" color="primary" startIcon={<SaveIcon />}>
+            Salvar
+          </Button>
+        </Box>
       </Box>
-    </Layout>
+    </Container>
   );
 }
