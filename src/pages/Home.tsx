@@ -1,24 +1,27 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
+import { Button, Typography, Box } from "@mui/material";
+import Layout from "../components/Layout";
 
 export default function Home() {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
 
   return (
-    <div>
-      <h1>Loan App</h1>
-      {isAuthenticated ? (
-        <>
-          <p>Welcome, {user?.name || "User"}!</p>
-          <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
-            Logout
-          </button>
-          <br />
-           <Link to="/register">Register</Link>
-        </>
-      ) : (
-        <button onClick={() => loginWithRedirect()}>Login</button>
+    <Layout>
+      <Typography variant="h4" gutterBottom>
+        Welcome {isAuthenticated ? user?.name || "User" : "Guest"}
+      </Typography>
+
+      {isAuthenticated && (
+        <Box display="flex" flexDirection="column" gap={2} mt={2}>
+          <Button variant="contained" component={Link} to="/loan">
+            Apply for Loan
+          </Button>
+          <Button variant="outlined" component={Link} to="/register">
+            Register
+          </Button>
+        </Box>
       )}
-    </div>
+    </Layout>
   );
 }

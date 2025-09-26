@@ -7,14 +7,20 @@ import Home from "./pages/Home";
 import auth0Config from "./auth0Config";
 import Register from "./pages/Register";
 import PrivateRoute from "./components/PrivateRoute";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
+import { CssBaseline } from "@mui/material";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+     
     <Auth0Provider
       domain={auth0Config.domain}
       clientId={auth0Config.clientId}
       authorizationParams={auth0Config.authorizationParams}
     >
+      <ThemeProvider theme={theme}>
+        <CssBaseline>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
@@ -27,11 +33,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 </PrivateRoute>
               }
             />
-
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>
       </BrowserRouter>
+      </CssBaseline>
+      </ThemeProvider>
     </Auth0Provider>
   </React.StrictMode>
 );

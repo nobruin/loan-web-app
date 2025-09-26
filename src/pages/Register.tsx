@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Container, Typography, TextField, Button, Box } from "@mui/material";
+import { Typography, TextField, Button, Box } from "@mui/material";
+import Layout from "../components/Layout";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -15,53 +16,35 @@ export default function Register() {
   };
 
   const handleSubmit = () => {
-    // mockando a resposta por enquanto
     console.log("Dados enviados:", form);
     alert("Cadastro realizado com sucesso (mock)!");
   };
 
   return (
-    <Container maxWidth="sm">
+    <Layout>
       <Typography variant="h4" gutterBottom>
         Cadastro
       </Typography>
+
       <Box display="flex" flexDirection="column" gap={2}>
-        <TextField
-          label="Nome Completo"
-          name="fullName"
-          value={form.fullName}
-          onChange={handleChange}
-        />
-        <TextField
-          label="CPF"
-          name="cpf"
-          value={form.cpf}
-          onChange={handleChange}
-        />
+        <TextField label="Nome Completo" name="fullName" value={form.fullName} onChange={handleChange} />
+        <TextField label="CPF" name="cpf" value={form.cpf} onChange={handleChange} />
         <TextField
           label="Data de Nascimento"
           type="date"
-          InputLabelProps={{ shrink: true }}
+           slotProps={{
+            inputLabel: { shrink: true }
+        }}
           name="birthDate"
           value={form.birthDate}
           onChange={handleChange}
         />
-        <TextField
-          label="Endereço"
-          name="address"
-          value={form.address}
-          onChange={handleChange}
-        />
-        <TextField
-          label="Conta Bancária"
-          name="bankAccount"
-          value={form.bankAccount}
-          onChange={handleChange}
-        />
+        <TextField label="Endereço" name="address" value={form.address} onChange={handleChange} />
+        <TextField label="Conta Bancária" name="bankAccount" value={form.bankAccount} onChange={handleChange} />
         <Button variant="contained" onClick={handleSubmit}>
           Cadastrar
         </Button>
       </Box>
-    </Container>
+    </Layout>
   );
 }
