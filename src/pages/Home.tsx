@@ -14,7 +14,7 @@ export default function Home() {
             Logout
           </button>
           <br />
-          <Link to="/loan">Apply for Loan</Link>
+           <Link to="/register">Register</Link>
         </>
       ) : (
         <button onClick={() => loginWithRedirect()}>Login</button>
