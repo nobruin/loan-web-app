@@ -1,9 +1,9 @@
 const auth0Config = {
-  domain: "dev-7v8qmxq2rcmv3w7w.us.auth0.com",
-  clientId: "BScud9r7PJEy315s9DWqzW03iGCBNJFv",
+  domain: import.meta.env.VITE_AUTH0_DOMAIN,
+  clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
   authorizationParams: {
-    redirect_uri: "http://localhost:3000"
-  }
+     redirect_uri: window.location.origin,
+  },
 };
 
 export default auth0Config;
