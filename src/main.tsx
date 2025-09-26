@@ -6,6 +6,7 @@ import App from "./App";
 import Home from "./pages/Home";
 import auth0Config from "./auth0Config";
 import Register from "./pages/Register";
+import Loan from "./pages/Loan";
 import PrivateRoute from "./components/PrivateRoute";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
@@ -25,6 +26,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
+             <Route
+              path="loan"
+              element={
+                <PrivateRoute>
+                  <Loan />
+                </PrivateRoute>
+              }
+            />
             <Route
               path="register"
               element={
